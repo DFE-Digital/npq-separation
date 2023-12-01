@@ -120,10 +120,33 @@ erDiagram
     }
 ```
 
-### API sample queries
-
 ### Things we removed
 
 #### Policy-specific prefixes
 #### ParticipantProfile
 #### ParticipantIdentity
+
+### API sample queries
+
+#### `/api/v3/participants/npq`
+
+* User
+  - `id`
+  - `email`
+  - `full_name`
+  - `teacher_reference_number`
+  - `updated_at`
+* LeadProvider
+  - `id`
+  - `name`
+* Course
+  - `id`
+  - `identifier`
+* Application {
+  - `id`
+  - `course_id`
+  - `lead_provider_id`
+
+```ruby
+User.joins(applications: [:lead_providers, :courses])
+```
