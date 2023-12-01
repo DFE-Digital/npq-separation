@@ -48,7 +48,7 @@ erDiagram
     
     Milestone }|--|| Schedule : ""
 
-    ParticipantOutcome }|--|| Declaration : ""
+    Outcome }|--|| Declaration : ""
 
     User {
         uuid id
@@ -99,7 +99,7 @@ erDiagram
         integer start_year
     }
 
-    ParticipantOutcome {
+    Outcome {
         uuid id
         string state
         date completion_date
@@ -149,4 +149,30 @@ erDiagram
 
 ```ruby
 User.joins(applications: [:lead_providers, :courses])
+```
+
+#### `/api/v3/participants/npq/outcomes`
+
+
+* Outcome
+  - `id`
+  - `state`
+  - `completion_date`
+  - `declaration_id`
+  - `created_at`
+
+* Declaration
+  - `id`
+  - `course_id`
+  - `participant_identity_id`
+
+* Course
+  - `id`
+  - `identifier`
+
+* User {
+  - `id`
+
+```ruby
+Outcome.joins(declaration: [:users, :course])
 ```
