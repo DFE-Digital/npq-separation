@@ -258,3 +258,5 @@ Declaration
 ## Questions
 
 ### Do we use NPQ-style numeric IDs for primary keys or switch to UUIDs?
+
+### Should we store some data in multiple locations (eg: `application.user_id` == `application.declarations.user_id`), we can also refer to it through the parent association and be better normalised?
