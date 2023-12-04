@@ -140,7 +140,7 @@ erDiagram
 * Course
   - `id`
   - `identifier`
-* Application {
+* Application
   - `id`
   - `course_id`
   - `lead_provider_id`
@@ -215,7 +215,7 @@ Application
   - `id`
   - `identifier`
 
-* User {
+* User
   - `id`
 
 ```ruby
