@@ -78,7 +78,7 @@ erDiagram
         string private_childcare_provider_urn
         string teacher_reference_number
         boolean teacher_reference_number_verified
-        uuid school_id
+        string school_urn
         string lead_provider_approval_status
         boolean works_in_school
         uuid cohort_id
