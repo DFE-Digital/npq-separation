@@ -107,8 +107,10 @@ erDiagram
     Declaration {
         uuid id
         uuid course_id
-        uuid user_id
         uuid application_id
+        string state
+        string declaration_type
+        date declaration_date
     }
 
     School {
@@ -198,7 +200,6 @@ Application
 
 #### `/api/v3/participants/npq/outcomes`
 
-
 * Outcome
   - `id`
   - `state`
@@ -222,6 +223,36 @@ Application
 Outcome
   .includes(declaration: { application: :user }, :course)
   .where(declaration: { lead_provider_id: current_lead_provider.id } )
+```
+
+#### `/api/v3/participant-declarations`
+
+* Declaration
+  - `id`
+  - `state`
+  - `application_id`
+  - `declaration_type`
+  - `declaration_date`
+  - `course_id`
+
+* Course
+  - `id`
+  - `identifier`
+
+* Outcome
+  - `id`
+  - `state`
+  - `created_at`
+  - `declaration_id`
+
+* Application
+  - `id`
+  - `user_id`
+
+```ruby
+Declaration
+  .includes(:application, :outcomes)
+  .where( lead_provider_id: current_lead_provider.id )
 ```
 
 ## Questions
