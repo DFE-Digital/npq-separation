@@ -23,9 +23,6 @@ erDiagram
     Application }o--o| School : ""
     Application }o--o| PrivateChildcareProvider : ""
     Application }|--|| Cohort : ""
-    %%Application }|--|| ParticipantIdentity : belongs_to
-
-    %%ParticipantIdentity }|--|| User : belongs_to
 
     Declaration }|--|| User : ""
     Declaration }|--|| Course : ""
@@ -45,7 +42,7 @@ erDiagram
     Contract }|--|| Statement : ""
 
     Schedule }|--|| Cohort : ""
-    
+
     Milestone }|--|| Schedule : ""
 
     Outcome }|--|| Declaration : ""
@@ -72,7 +69,7 @@ erDiagram
         uuid id
         uuid course_id
         uuid lead_provider_id
-        uuid participant_identity_id
+        uuid user_id
         string employer_name
         string employment_role
         string funding_choice
@@ -111,6 +108,7 @@ erDiagram
         uuid id
         uuid course_id
         uuid user_id
+        uuid application_id
     }
 
     School {
@@ -148,7 +146,54 @@ erDiagram
   - `lead_provider_id`
 
 ```ruby
-User.joins(applications: [:lead_providers, :courses])
+User
+  .joins(applications: [:lead_providers, :courses])
+  .where(applications: { lead_provider: current_lead_provider } )
+```
+
+#### `/api/v3/npq-applications`
+
+* Application
+  - `course_id`
+  - `participant_identity_id`
+  - `employer_name`
+  - `employment_role`
+  - `funding_choice`
+  - `headteacher_status`
+  - `ineligible_for_funding_reason`
+  - `private_childcare_provider_urn`
+  - `teacher_reference_number`
+  - `teacher_reference_number_verified`
+  - `school_urn`
+  - `school_ukprn`
+  - `lead_provider_approval_status`
+  - `works_in_school`
+  - `cohort_id`
+  - `eligible_for_funding`
+  - `targeted_delivery_funding_eligibility`
+  - `teacher_catchment`
+  - `teacher_catchment_iso_country_code`
+  - `teacher_catchment_country`
+  - `itt_provider`
+  - `lead_mentor`
+  - `lead_provider_id`
+
+* Course
+  - `id`
+  - `identifier`
+
+* User
+  - `id`
+  - `full_name`
+
+* Cohort
+  - `id`
+  - `integer start_year`
+
+```ruby
+Application
+  .joins(:courses, :cohort, :user)
+  .where(lead_provider: current_lead_provider)
 ```
 
 #### `/api/v3/participants/npq/outcomes`
@@ -164,7 +209,7 @@ User.joins(applications: [:lead_providers, :courses])
 * Declaration
   - `id`
   - `course_id`
-  - `participant_identity_id`
+  - `user_id`
 
 * Course
   - `id`
@@ -174,5 +219,7 @@ User.joins(applications: [:lead_providers, :courses])
   - `id`
 
 ```ruby
-Outcome.joins(declaration: [:users, :course])
+Outcome
+  .includes(declaration: { application: :user }, :course)
+  .where(declaration: { lead_provider_id: current_lead_provider.id } )
 ```
