@@ -120,11 +120,90 @@ erDiagram
     }
 ```
 
+### Things we merged
+
+[See data integrity](./data-integrity.md).
+
 ### Things we removed
 
 #### Policy-specific prefixes
-#### ParticipantProfile
-#### ParticipantIdentity
+
+When sharing a database with ECF there were several tables and columns that had
+to be qualified with either `ecf_` or `npq_`. When separated, the prefixes are 
+superfluous and can be dropped entirely.
+
+| Old                  | New              |
+| ---                  | ---              |
+| `npq_lead_providers` | `lead_providers` |
+| `npq_courses`        | `courses`        |
+
+#### ParticipantIdentity, TeacherProfile and ParticipantProfile
+
+Completing ECF takes two years and during that time the participant's circumstances
+can change many times. Not all past details about a participant are visible to
+their current provider, and their current details aren't visible to their past
+providers.
+
+To cope with this complex set of requirements ECF employs a hierarchy of ownership.
+
+```mermaid
+erDiagram
+    users ||--o{ participant_identities : "has_many"
+    participant_identities ||--|{ participant_profiles : "has many"
+    users ||--|| teacher_profiles : "has one"
+    participant_profiles ||--o{ induction_records : ""
+    participant_identities ||--|{ npq_applications : ""
+
+    users {
+        string full_name
+        string email
+    }
+
+    teacher_profiles {
+        string trn
+    }
+
+    participant_identities {
+        string email
+    }
+
+    participant_profiles {
+        string type "NPQ, ECT or Mentor"
+    }
+```
+
+This hierarchy is more complicated than necessary for NPQ.
+
+NPQ is a much simpler process. An application is made once by the teacher
+themselves. We don't need to worry about ownership or restricting access via
+the API. We can probably simply allow applications to `belong_to` a user
+directly.
+
+```mermaid
+erDiagram
+    users ||--o{ npq_applications : "makes"
+    users {
+        string full_name
+        string email
+        string trn
+    }
+```
+
+Alternatively, if we want multiple email addresses for a user:
+
+```mermaid
+erDiagram
+
+    users ||--o{ npq_applications : "makes"
+    users ||--o{ email_addresses : "has many"
+    users {
+        string full_name
+        string trn
+    }
+    email_addresses {
+        string email_address
+    }
+```
 
 ### API sample queries
 
