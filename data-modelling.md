@@ -223,3 +223,7 @@ Outcome
   .includes(declaration: { application: :user }, :course)
   .where(declaration: { lead_provider_id: current_lead_provider.id } )
 ```
+
+## Questions
+
+### Do we use NPQ-style numeric IDs for primary keys or switch to UUIDs?
