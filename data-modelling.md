@@ -11,6 +11,22 @@ The aim is:
 * to structure the data so it's easy to understand
 * the queries that power the API should be simple and fast
 
+## Current schema
+
+* Everything hangs off the `Application`
+* The foreign keys aren't currently enforced at the database level, we aim to
+  fix that before building anything on top (thanks Pablo! 😄)
+
+```mermaid
+erDiagram
+    Application }|--|| User : ""
+    Application }|--|| LeadProvider : ""
+    Application }|--|| Course : ""
+    Application }o--o| School : ""
+    Application }o--o| PrivateChildcareProvider : ""
+    Application }|--|| Cohort : ""
+```
+
 ## Proposed schema
 
 _This is an initial version and likely to change_.
