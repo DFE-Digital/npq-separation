@@ -61,31 +61,32 @@ They're just POC queries but need more discussing on the best technical approach
 
 #### Other db tables
 We believe the data migration should be fine for other DB tables other than the ones with duplicated table names or purpose.
-For financial data for example, it’ll be new tables to get created in `npq-reg` app. ie: `npq_contracts` `statements` `statement_line_items`, so no merge data to worry about or duplication, etc.
+For **financial data** for example, it’ll be new tables to get created in `npq-reg` app. ie: `npq_contracts` `statements` `statement_line_items`, so no merge data to worry about or duplication, etc.
 
 ## Q&A
 
 - ##### What would the key challenges be in migrating data from ECF app to a separated NPQ app be, and how might we mitigate them?
+  Users & Applications tables are the main challenges as we have crutial data in it and the table names collapses with existing tables from NPQ-reg app.
 
-  Users & Applications tables are the main challenges as we have crutial data in it
+  More details in the [proposed data migration plan](#proposed-data-migration-plan).
 
-  Create a single table with all fields (UNION ALL) from both tables and then resolve discrepancies and duplication.
-
-- ##### Analyse how we can safely merge the current data in ECF tables (NPQ applications and users) into the existing model in NPQ. After the analysis is done we would like to have:
-  See "Plan" spreadsheet
+- ##### Analyse how we can safely merge the current data in ECF tables (NPQ applications and users) into the existing model in NPQ.
+  Covered in the [proposed data migration plan](#proposed-data-migration-plan).
 
 - ##### Highlight any discrepancies between the data, what the cause is and how to resolve
-    See "NPQ & ECF Data Comparison" spreadsheet
+  Covered in the [the comparison CSV](data-integrity/ecf_npq_registration_model_comparison.csv).
 
 - ##### The source of truth of data between both
-
   We believe the source of truth of data would be ECF app as a npq application is created via npq-reg app but it's maintained, enhanced and displayed to lead providers via ECF app apis.
 
 - ##### Devise a plan to safely migrate data from ECF to NPQ
-  See "Plan" spreadsheet
+  Covered in the [proposed data migration plan](#proposed-data-migration-plan).
 
 - ##### Consider how we might test the riskiest parts of the plan
+  As a suggestion, we could create a separated DB server to follow the data migration plan into, so we keep both apps original DBs intact meanwhile we test/tweak out the migration process. Once eveything is tested and re-tested (re-re-tested) and signed off, we can then go ahead and do it in production enviornments.
 
 - ##### Are there any duplicates in the data, for NPQ applications as well as users across both apps, how do we resolve those?
+  The idea is to use ECF-app data as the source of truth of data, so for example in case of the same `User` record with same email address in both apps, we'll merge data and keep the migrated ECF record.
 
-- ##### Ideas for fallback
+- ##### Ideas for fallback, in case we need to rollback or cancel the migration for some reason
+  To be discussed with wider dev team
