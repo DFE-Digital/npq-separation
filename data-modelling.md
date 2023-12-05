@@ -181,18 +181,6 @@ directly.
 
 ```mermaid
 erDiagram
-    users ||--o{ npq_applications : "makes"
-    users {
-        string full_name
-        string email
-        string trn
-    }
-```
-
-Alternatively, if we want multiple email addresses for a user:
-
-```mermaid
-erDiagram
 
     users ||--o{ npq_applications : "makes"
     users ||--o{ email_addresses : "has many"
