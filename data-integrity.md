@@ -91,3 +91,11 @@ For **financial data** for example, it’ll be new tables to get created in `NPQ
 
 - ##### Ideas for fallback, in case we need to rollback or cancel the migration for some reason
   To be discussed with wider dev team
+
+
+## Next Steps
+
+1. Deep dive into the purposed data migration plan
+2. Understand odd scenarios:
+    1. applications in ECF and not in NPQ and vice-versa
+    2. Understand users in NPQ and not in ECF (by ecf_id) (maybe deduped users?)
