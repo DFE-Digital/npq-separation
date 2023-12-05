@@ -122,7 +122,6 @@ erDiagram
 
     Declaration {
         uuid id
-        uuid course_id
         uuid application_id
         string state
         string declaration_type
@@ -139,6 +138,10 @@ erDiagram
 ### Things we merged
 
 [See data integrity](./data-integrity.md).
+
+### Things we intend to change
+
+* use `course_id` as the foreign key between `applications` and `courses` instead of `identifier`
 
 ### Things we removed
 
@@ -213,6 +216,8 @@ erDiagram
 
 #### `/api/v3/participants/npq`
 
+Returns all paricipants who've made appplications belonging to current lead provider.
+
 * User
   - `id`
   - `email`
@@ -237,6 +242,8 @@ User
 ```
 
 #### `/api/v3/npq-applications`
+
+Returns all applications belonging to the current lead provider.
 
 * Application
   - `course_id`
@@ -283,6 +290,8 @@ Application
 
 #### `/api/v3/participants/npq/outcomes`
 
+Outcomes for all participants with applications belonging to the current lead provider.
+
 * Outcome
   - `id`
   - `state`
@@ -292,31 +301,30 @@ Application
 
 * Declaration
   - `id`
-  - `course_id`
-  - `user_id`
 
 * Course
   - `id`
   - `identifier`
 
-* User
-  - `id`
+* Application
+  - `user_id`
+  - `course_id`
 
 ```ruby
 Outcome
-  .includes(declaration: { application: :user }, :course)
-  .where(declaration: { lead_provider_id: current_lead_provider.id } )
+  .includes(declaration: { application: :course })
+  .where(declaration: { application: { lead_provider_id: current_lead_provider } } )
 ```
 
 #### `/api/v3/participant-declarations`
 
+Returns all declarations made against applications that belong to the current lead provider.
+
 * Declaration
   - `id`
   - `state`
-  - `application_id`
   - `declaration_type`
   - `declaration_date`
-  - `course_id`
 
 * Course
   - `id`
@@ -331,11 +339,12 @@ Outcome
 * Application
   - `id`
   - `user_id`
+  - `course_id`
 
 ```ruby
 Declaration
-  .includes(:application, :outcomes)
-  .where( lead_provider_id: current_lead_provider.id )
+  .includes(:outcomes, application: :course)
+  .where(application: { lead_provider_id: current_lead_provider })
 ```
 
 ## Questions
