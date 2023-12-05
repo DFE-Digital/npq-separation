@@ -57,6 +57,7 @@ They're just POC queries but need more discussing on the best technical approach
 ## List of DB tables
 
 [early-careers-framework db tables](data-integrity/ecf-app-db-tables.md)
+
 [npq-registration db tables](data-integrity/npq-reg-app-db-tables.md)
 
 #### Other db tables
