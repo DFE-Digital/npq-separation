@@ -54,6 +54,15 @@ ALTER TABLE applications
 ALTER COLUMN lead_provider_id SET NOT NULL;
 ```
 
+### Example of applications record with new lead provider id (migrated from ECF app)
+_(dummy data)_
+
+|id|lead_provider_id|user_id|course_id|school_urn|created_at|updated_at|ecf_id|headteacher_status|eligible_for_funding|funding_choice|ukprn|teacher_catchment|teacher_catchment_country|works_in_school|employer_name|employment_role|private_childcare_provider_urn|works_in_nursery|works_in_childcare|kind_of_nursery|DEPRECATED_cohort|targeted_delivery_funding_eligibility|funding_eligiblity_status_code|raw_application_data|work_setting|teacher_catchment_synced_to_ecf|employment_type|itt_provider|lead_mentor|primary_establishment|number_of_pupils|tsf_primary_eligibility|tsf_primary_plus_eligibility|lead_provider_approval_status|participant_outcome_state|lead_provider_id|
+|--|----------------|-------|---------|----------|----------|----------|------|------------------|--------------------|--------------|-----|-----------------|-------------------------|---------------|-------------|---------------|------------------------------|----------------|------------------|---------------|-----------------|-------------------------------------|------------------------------|--------------------|------------|-------------------------------|---------------|------------|-----------|---------------------|----------------|-----------------------|----------------------------|-----------------------------|-------------------------|----------------|
+|51158|ef687b3d-c1c0-4566-a295-16d6fa5d0fa7|12345|10|123456|2022-07-19 14:41:21.025|2023-11-10 08:04:12.097|cfadea97-2539-4be3-9b86-30d4404ee6f6||true||10047142|england||true||||false|false||2022|false|funded|{"trn": "1234567", "email": "test@test.uk", "course_id": "10", "full_name": "Test Example", "active_alert": false, "trn_verified": true, "verified_trn": "1234567", "date_of_birth": "2000-04-21", "trn_knowledge": "yes", "chosen_provider": "yes", "confirmed_email": "text@example.com", "works_in_school": "yes", "institution_name": "", "lead_provider_id": "9", "can_share_choices": "1", "teacher_catchment": "england", "trn_auto_verified": true, "institution_location": "Nowhere", "institution_identifier": "School-141248", "national_insurance_number": "123456789", "teacher_catchment_country": null}||true|||false|false|0|false|false|pending||ef687b3d-c1c0-4566-a295-16d6fa5d0fa7|
+
+### Example of query to fetch users record with ECF reg data merged with NPQ reg data
+
 ``` sql
 select
 tb1.id,
