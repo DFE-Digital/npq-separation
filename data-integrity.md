@@ -62,7 +62,7 @@ They're just POC queries but need more discussing on the best technical approach
 
 #### Other db tables
 We believe the data migration should be fine for other DB tables other than the ones with duplicated table names or purpose.
-For **financial data** for example, it’ll be new tables to get created in `npq-reg` app. ie: `npq_contracts` `statements` `statement_line_items`, so no merge data to worry about or duplication, etc.
+For **financial data** for example, it’ll be new tables to get created in `NPQ reg` app. ie: `npq_contracts` `statements` `statement_line_items` `milestones` `participant_outcomes` `participant_declarations` etc, so no merge data to worry about or duplication, etc.
 
 ## Q&A
 
