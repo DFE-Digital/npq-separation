@@ -354,3 +354,10 @@ Declaration
 ### Should we store some data in multiple locations (eg: `application.user_id` == `application.declarations.user_id`), we can also refer to it through the parent association and be better normalised?
 
 We agree that removing any unnecessary fields and normalising the database as much as possible is a good idea.
+
+
+## Next steps
+
+1. Statements and calculators
+2. Statuses
+3. History
