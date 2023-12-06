@@ -529,3 +529,18 @@ Make `name` into a generated method.
 2. Statuses
 3. History
 4. Validation
+
+### How do we deal with changes?
+
+Having had a chat with Laura on the topic, she believed that we should allow for the following:
+
+* things that could change at any point:
+  - URN
+  - provider
+  - training status
+* things can only change pre-declaration:
+  - schedule
+  - cohort
+* shouldn't change, require re-application:
+  - course
+  - eligibility
