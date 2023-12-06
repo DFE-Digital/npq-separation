@@ -267,230 +267,245 @@ erDiagram
 
 ### API sample queries
 
-#### `/api/v3/participants/npq`
+<details>
+  <summary>/api/v3/participants/npq</summary>
 
-Returns all paricipants who've made appplications belonging to current lead provider.
+  Returns all paricipants who've made appplications belonging to current lead provider.
 
-* User
-  - `id`
-  - `email`
-  - `full_name`
-  - `teacher_reference_number`
-  - `updated_at`
-* LeadProvider
-  - `id`
-  - `name`
-* Course
-  - `id`
-  - `identifier`
-* Application
-  - `id`
-  - `course_id`
-  - `lead_provider_id`
+  * User
+    - `id`
+    - `email`
+    - `full_name`
+    - `teacher_reference_number`
+    - `updated_at`
+  * LeadProvider
+    - `id`
+    - `name`
+  * Course
+    - `id`
+    - `identifier`
+  * Application
+    - `id`
+    - `course_id`
+    - `lead_provider_id`
 
-```ruby
-User
-  .joins(applications: [:lead_providers, :courses])
-  .where(applications: { lead_provider: current_lead_provider } )
-```
+  ```ruby
+  User
+    .joins(applications: [:lead_providers, :courses])
+    .where(applications: { lead_provider: current_lead_provider } )
+  ```
+</details>
 
-#### `/api/v3/npq-applications`
+<details>
+  <summary>/api/v3/npq-applications</summary>
 
-Returns all applications belonging to the current lead provider.
+  Returns all applications belonging to the current lead provider.
 
-* Application
-  - `course_id`
-  - `participant_identity_id`
-  - `employer_name`
-  - `employment_role`
-  - `funding_choice`
-  - `headteacher_status`
-  - `ineligible_for_funding_reason`
-  - `private_childcare_provider_urn`
-  - `teacher_reference_number`
-  - `teacher_reference_number_verified`
-  - `school_urn`
-  - `school_ukprn`
-  - `lead_provider_approval_status`
-  - `works_in_school`
-  - `cohort_id`
-  - `eligible_for_funding`
-  - `targeted_delivery_funding_eligibility`
-  - `teacher_catchment`
-  - `teacher_catchment_iso_country_code`
-  - `teacher_catchment_country`
-  - `itt_provider`
-  - `lead_mentor`
-  - `lead_provider_id`
+  * Application
+    - `course_id`
+    - `participant_identity_id`
+    - `employer_name`
+    - `employment_role`
+    - `funding_choice`
+    - `headteacher_status`
+    - `ineligible_for_funding_reason`
+    - `private_childcare_provider_urn`
+    - `teacher_reference_number`
+    - `teacher_reference_number_verified`
+    - `school_urn`
+    - `school_ukprn`
+    - `lead_provider_approval_status`
+    - `works_in_school`
+    - `cohort_id`
+    - `eligible_for_funding`
+    - `targeted_delivery_funding_eligibility`
+    - `teacher_catchment`
+    - `teacher_catchment_iso_country_code`
+    - `teacher_catchment_country`
+    - `itt_provider`
+    - `lead_mentor`
+    - `lead_provider_id`
 
-* Course
-  - `id`
-  - `identifier`
+  * Course
+    - `id`
+    - `identifier`
 
-* User
-  - `id`
-  - `full_name`
+  * User
+    - `id`
+    - `full_name`
 
-* Cohort
-  - `id`
-  - `integer start_year`
+  * Cohort
+    - `id`
+    - `integer start_year`
 
-```ruby
-Application
-  .joins(:courses, :cohort, :user)
-  .where(lead_provider: current_lead_provider)
-```
+  ```ruby
+  Application
+    .joins(:courses, :cohort, :user)
+    .where(lead_provider: current_lead_provider)
+  ```
+</details>
 
-#### `/api/v3/participants/npq/outcomes`
+<details>
+  <summary>/api/v3/participants/npq/outcomes</summary>
 
-Outcomes for all participants with applications belonging to the current lead provider.
+  Outcomes for all participants with applications belonging to the current lead provider.
 
-* Outcome
-  - `id`
-  - `state`
-  - `completion_date`
-  - `declaration_id`
-  - `created_at`
+  * Outcome
+    - `id`
+    - `state`
+    - `completion_date`
+    - `declaration_id`
+    - `created_at`
 
-* Declaration
-  - `id`
+  * Declaration
+    - `id`
 
-* Course
-  - `id`
-  - `identifier`
+  * Course
+    - `id`
+    - `identifier`
 
-* Application
-  - `user_id`
-  - `course_id`
+  * Application
+    - `user_id`
+    - `course_id`
 
-```ruby
-Outcome
-  .includes(declaration: { application: :course })
-  .where(declaration: { application: { lead_provider_id: current_lead_provider } } )
-```
+  ```ruby
+  Outcome
+    .includes(declaration: { application: :course })
+    .where(declaration: { application: { lead_provider_id: current_lead_provider } } )
+  ```
+</details>
 
-#### `/api/v3/participant-declarations`
+<details>
+  <summary>/api/v3/participant-declarations</summary>
 
-Returns all declarations made against applications that belong to the current lead provider.
+  Returns all declarations made against applications that belong to the current lead provider.
 
-* Declaration
-  - `id`
-  - `state`
-  - `declaration_type`
-  - `declaration_date`
+  * Declaration
+    - `id`
+    - `state`
+    - `declaration_type`
+    - `declaration_date`
 
-* Course
-  - `id`
-  - `identifier`
+  * Course
+    - `id`
+    - `identifier`
 
-* Outcome
-  - `id`
-  - `state`
-  - `created_at`
-  - `declaration_id`
+  * Outcome
+    - `id`
+    - `state`
+    - `created_at`
+    - `declaration_id`
 
-* Application
-  - `id`
-  - `user_id`
-  - `course_id`
+  * Application
+    - `id`
+    - `user_id`
+    - `course_id`
 
-```ruby
-Declaration
-  .includes(:outcomes, application: :course)
-  .where(application: { lead_provider_id: current_lead_provider })
-```
+  ```ruby
+  Declaration
+    .includes(:outcomes, application: :course)
+    .where(application: { lead_provider_id: current_lead_provider })
+  ```
+</details>
 
 ### Statement calculator
 
-#### `Finance::NPQ::StatementsController`
+<details>
+  <summary>Finance::NPQ::StatementsController</summary>
 
-* Statement
-  - `id`
-  - `month`
-  - `year`
-  - `deadline_date`
-  - `cohort_id`
-  - `lead_provider_id`
-  - `marked_as_paid_at`
+  * Statement
+    - `id`
+    - `month`
+    - `year`
+    - `deadline_date`
+    - `cohort_id`
+    - `lead_provider_id`
+    - `marked_as_paid_at`
 
-* Contract
-  - `id`
-  - `special_course`
-  - `statement_id`
-  - `course_id`
-  - `recruitment_target`
-  - `per_participant`
+  * Contract
+    - `id`
+    - `special_course`
+    - `statement_id`
+    - `course_id`
+    - `recruitment_target`
+    - `per_participant`
 
-* Course
-  - `id`
-  - `name`
-  - `identifier`
+  * Course
+    - `id`
+    - `name`
+    - `identifier`
 
-* LeadProvider
-  - `id`
-  - `name`
+  * LeadProvider
+    - `id`
+    - `name`
 
-Statement the belongs to LeadProvider.
-Statement has many Contracts, one for each Course.
+  Statement the belongs to LeadProvider.
+  Statement has many Contracts, one for each Course.
+</details>
 
-#### `Finance::NPQ::StatementCalculator`
+<details>
+  <summary>Finance::NPQ::StatementCalculator</summary>
 
-* Statement
-  - `id`
-  - `reconcile_amount`
-  - `lead_provider_id`
+  * Statement
+    - `id`
+    - `reconcile_amount`
+    - `lead_provider_id`
 
-* Course
-  - `id`
-  - `identifier`
+  * Course
+    - `id`
+    - `identifier`
 
-* Declaration
-  - `id`
-  - `state`
-  - `course_id`
+  * Declaration
+    - `id`
+    - `state`
+    - `course_id`
+</details>
 
-#### `Finance::NPQ::CourseStatementCalculator`
 
-* Contract
-  - `id`
-  - `per_participant`
-  - `output_payment_percentage`
-  - `number_of_payment_periods`
-  - `recruitment_target`
-  - `service_fee_percentage`
-  - `service_fee_installments`
+<details>
+  <summary>Finance::NPQ::CourseStatementCalculator</summary>
 
-* StatementLineItem
-  - `id`
-  - `statement_id`
-  - `declaration_id`
+  * Contract
+    - `id`
+    - `per_participant`
+    - `output_payment_percentage`
+    - `number_of_payment_periods`
+    - `recruitment_target`
+    - `service_fee_percentage`
+    - `service_fee_installments`
 
-* Declaration
-  - `id`
-  - `declaration_type`
-  - `application_id`
-  - `state`
+  * StatementLineItem
+    - `id`
+    - `statement_id`
+    - `declaration_id`
 
-* Application
-  - `id`
-  - `user_id`
+  * Declaration
+    - `id`
+    - `declaration_type`
+    - `application_id`
+    - `state`
 
-* Schedule
-  - `id`
-  - `course_id`
-  - `cohort_id`
+  * Application
+    - `id`
+    - `user_id`
 
-* Milestone
-  - `id`
-  - `schedule_id`
-  - `declaration_type`
+  * Schedule
+    - `id`
+    - `course_id`
+    - `cohort_id`
 
-* Statement
-  - `id`
-  - `lead_provider_id`
+  * Milestone
+    - `id`
+    - `schedule_id`
+    - `declaration_type`
 
-We count declarations based on `declaration_type` and `user_id`, so
-users are not double counted.
+  * Statement
+    - `id`
+    - `lead_provider_id`
+
+  We count declarations based on `declaration_type` and `user_id`, so
+  users are not double counted.
+</details>
 
 ## Questions
 
