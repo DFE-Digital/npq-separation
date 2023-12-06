@@ -410,95 +410,102 @@ erDiagram
 
 ### Statement calculator
 
-#### `Finance::NPQ::StatementsController`
+<details>
+  <summary>Finance::NPQ::StatementsController</summary>
 
-* Statement
-  - `id`
-  - `month`
-  - `year`
-  - `deadline_date`
-  - `cohort_id`
-  - `lead_provider_id`
-  - `marked_as_paid_at`
+  * Statement
+    - `id`
+    - `month`
+    - `year`
+    - `deadline_date`
+    - `cohort_id`
+    - `lead_provider_id`
+    - `marked_as_paid_at`
 
-* Contract
-  - `id`
-  - `special_course`
-  - `statement_id`
-  - `course_id`
-  - `recruitment_target`
-  - `per_participant`
+  * Contract
+    - `id`
+    - `special_course`
+    - `statement_id`
+    - `course_id`
+    - `recruitment_target`
+    - `per_participant`
 
-* Course
-  - `id`
-  - `name`
-  - `identifier`
+  * Course
+    - `id`
+    - `name`
+    - `identifier`
 
-* LeadProvider
-  - `id`
-  - `name`
+  * LeadProvider
+    - `id`
+    - `name`
 
-Statement the belongs to LeadProvider.
-Statement has many Contracts, one for each Course.
+  Statement the belongs to LeadProvider.
+  Statement has many Contracts, one for each Course.
+</details>
 
-#### `Finance::NPQ::StatementCalculator`
+<details>
+  <summary>Finance::NPQ::StatementCalculator</summary>
 
-* Statement
-  - `id`
-  - `reconcile_amount`
-  - `lead_provider_id`
+  * Statement
+    - `id`
+    - `reconcile_amount`
+    - `lead_provider_id`
 
-* Course
-  - `id`
-  - `identifier`
+  * Course
+    - `id`
+    - `identifier`
 
-* Declaration
-  - `id`
-  - `state`
-  - `course_id`
+  * Declaration
+    - `id`
+    - `state`
+    - `course_id`
+</details>
 
-#### `Finance::NPQ::CourseStatementCalculator`
 
-* Contract
-  - `id`
-  - `per_participant`
-  - `output_payment_percentage`
-  - `number_of_payment_periods`
-  - `recruitment_target`
-  - `service_fee_percentage`
-  - `service_fee_installments`
+<details>
+  <summary>Finance::NPQ::CourseStatementCalculator</summary>
 
-* StatementLineItem
-  - `id`
-  - `statement_id`
-  - `declaration_id`
+  * Contract
+    - `id`
+    - `per_participant`
+    - `output_payment_percentage`
+    - `number_of_payment_periods`
+    - `recruitment_target`
+    - `service_fee_percentage`
+    - `service_fee_installments`
 
-* Declaration
-  - `id`
-  - `declaration_type`
-  - `application_id`
-  - `state`
+  * StatementLineItem
+    - `id`
+    - `statement_id`
+    - `declaration_id`
 
-* Application
-  - `id`
-  - `user_id`
+  * Declaration
+    - `id`
+    - `declaration_type`
+    - `application_id`
+    - `state`
 
-* Schedule
-  - `id`
-  - `course_id`
-  - `cohort_id`
+  * Application
+    - `id`
+    - `user_id`
 
-* Milestone
-  - `id`
-  - `schedule_id`
-  - `declaration_type`
+  * Schedule
+    - `id`
+    - `course_id`
+    - `cohort_id`
 
-* Statement
-  - `id`
-  - `lead_provider_id`
+  * Milestone
+    - `id`
+    - `schedule_id`
+    - `declaration_type`
 
-We count declarations based on `declaration_type` and `user_id`, so
-users are not double counted.
+  * Statement
+    - `id`
+    - `lead_provider_id`
+
+  We count declarations based on `declaration_type` and `user_id`, so
+  users are not double counted.
+</details>
 
 ## Questions
 
