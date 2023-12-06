@@ -257,11 +257,12 @@ erDiagram
     users ||--o{ npq_applications : "makes"
     users ||--o{ email_addresses : "has many"
     users {
+        int trn
+        uuid get_an_identity_id
         string full_name
         string trn
-    }
-    email_addresses {
         string email_address
+        datetime synced_with_get_an_identity_at
     }
 ```
 
