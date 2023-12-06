@@ -133,6 +133,49 @@ erDiagram
         string urn
         string ukprn
     }
+
+    Statement {
+        uuid id
+        enum month
+        integer year
+        date deadline_date
+        uuid cohort_id
+        uuid lead_provider_id
+        datetime marked_as_paid_at
+        decimal reconcile_amount
+    }
+
+    Contract {
+        uuid id
+        boolean special_course
+        uuid statement_id
+        uuid course_id
+        decimal recruitment_target
+        decimal per_participant
+        decimal output_payment_percentage
+        decimal number_of_payment_periods
+        decimal service_fee_percentage
+        decimal service_fee_installments
+    }
+
+    StatementLineItem {
+        uuid id
+        uuid statement_id
+        uuid declaration_id
+        string state
+    }
+
+    Schedule {
+        uuid id
+        uuid course_id
+        uuid cohort_id
+    }
+
+    Milestone {
+        uuid id
+        uuid schedule_id
+        string declaration_type
+    }
 ```
 
 ### Things we merged
@@ -141,14 +184,24 @@ erDiagram
 
 ### Things we intend to change
 
+#### Course identifier
+
 * use `course_id` as the foreign key between `applications` and `courses` instead of `identifier`
+
+#### Contract + Statement redesign
+
+Currently, a statement has one contract for every course identifier. The contract has fields that are used to calculate the statement. Contract record is shared between many statements (different months).
+
+Over time the values change (business reasons) and we have a concept of `version` to create new contract with new values and update specific statements to use new `version`. This does not work very well. Requires a lot of work (creating new contract and bumping version) every time we need to make changes.
+
+Suggestion - we no longer share contracts. Every statement and course identifier will have a contract. When we want to update values for specific month, we just update that particular contract only. No need to create new contract and bump version.
 
 ### Things we removed
 
 #### Policy-specific prefixes
 
 When sharing a database with ECF there were several tables and columns that had
-to be qualified with either `ecf_` or `npq_`. When separated, the prefixes are 
+to be qualified with either `ecf_` or `npq_`. When separated, the prefixes are
 superfluous and can be dropped entirely.
 
 | Old                  | New              |
@@ -347,6 +400,98 @@ Declaration
   .where(application: { lead_provider_id: current_lead_provider })
 ```
 
+### Statement calculator
+
+#### `Finance::NPQ::StatementsController`
+
+* Statement
+  - `id`
+  - `month`
+  - `year`
+  - `deadline_date`
+  - `cohort_id`
+  - `lead_provider_id`
+  - `marked_as_paid_at`
+
+* Contract
+  - `id`
+  - `special_course`
+  - `statement_id`
+  - `course_id`
+  - `recruitment_target`
+  - `per_participant`
+
+* Course
+  - `id`
+  - `name`
+  - `identifier`
+
+* LeadProvider
+  - `id`
+  - `name`
+
+Statement the belongs to LeadProvider.
+Statement has many Contracts, one for each Course.
+
+#### `Finance::NPQ::StatementCalculator`
+
+* Statement
+  - `id`
+  - `reconcile_amount`
+  - `lead_provider_id`
+
+* Course
+  - `id`
+  - `identifier`
+
+* Declaration
+  - `id`
+  - `state`
+  - `course_id`
+
+#### `Finance::NPQ::CourseStatementCalculator`
+
+* Contract
+  - `id`
+  - `per_participant`
+  - `output_payment_percentage`
+  - `number_of_payment_periods`
+  - `recruitment_target`
+  - `service_fee_percentage`
+  - `service_fee_installments`
+
+* StatementLineItem
+  - `id`
+  - `statement_id`
+  - `declaration_id`
+
+* Declaration
+  - `id`
+  - `declaration_type`
+  - `application_id`
+  - `state`
+
+* Application
+  - `id`
+  - `user_id`
+
+* Schedule
+  - `id`
+  - `course_id`
+  - `cohort_id`
+
+* Milestone
+  - `id`
+  - `schedule_id`
+  - `declaration_type`
+
+* Statement
+  - `id`
+  - `lead_provider_id`
+
+We count declarations based on `declaration_type` and `user_id`, so
+users are not double counted.
+
 ## Questions
 
 ### Do we use NPQ-style numeric IDs for primary keys or switch to UUIDs?
@@ -355,6 +500,12 @@ Declaration
 
 We agree that removing any unnecessary fields and normalising the database as much as possible is a good idea.
 
+### We should have a `month` and `year` columns on Statement
+
+Currently have `name` (eg: "September 2025"). When we want to refer and
+update a statement we have to search on this column. Better to add a
+`month` column with enum of months and a `year` column with validations.
+Make `name` into a generated method.
 
 ## Next steps
 
