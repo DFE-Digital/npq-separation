@@ -255,7 +255,6 @@ directly.
 erDiagram
 
     users ||--o{ npq_applications : "makes"
-    users ||--o{ email_addresses : "has many"
     users {
         int trn
         uuid get_an_identity_id
