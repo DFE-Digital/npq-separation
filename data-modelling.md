@@ -48,8 +48,8 @@ erDiagram
     Statement }|--|| LeadProvider : ""
     Statement }|--|| Cohort : ""
 
-    StatementLineItem }|--|| Statement : ""
-    StatementLineItem }|--|| Declaration : ""
+    StatementItem }|--|| Statement : ""
+    StatementItem }|--|| Declaration : ""
 
     Contract }|--|| LeadProvider : ""
     Contract }|--|| Cohort : ""
@@ -158,7 +158,7 @@ erDiagram
         decimal service_fee_installments
     }
 
-    StatementLineItem {
+    StatementItem {
         uuid id
         uuid statement_id
         uuid declaration_id
@@ -474,7 +474,7 @@ erDiagram
     - `service_fee_percentage`
     - `service_fee_installments`
 
-  * StatementLineItem
+  * StatementItem
     - `id`
     - `statement_id`
     - `declaration_id`
