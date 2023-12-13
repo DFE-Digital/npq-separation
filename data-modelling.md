@@ -167,7 +167,6 @@ erDiagram
 
     Schedule {
         uuid id
-        uuid course_id
         uuid cohort_id
     }
 
