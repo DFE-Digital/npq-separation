@@ -38,8 +38,8 @@ We have ran a series of [queries](data-integrity/data-comparison-queries.rb) to 
 
 | Query                                                            | Result   |
 | ---------------------------------------------------------------- | -------- |
-| Applications in ECF and not in NPQ (by ecf_id)                   |  79      |
-| Applications in NPQ and not in ECF (by ecf_id)                   |  703     |
+| Applications in ECF and not in NPQ (by ecf_id)                   |  1032    |
+| Applications in NPQ and not in ECF (by ecf_id)                   |  12      |
 | Users in NPQ and not in ECF (by ecf_id)                          |  5,499   |
 | Users in NPQ with a duplicated email                             |  27      |
 | Users in NPQ with an invalid email (according to ECF validation) |  11      |
