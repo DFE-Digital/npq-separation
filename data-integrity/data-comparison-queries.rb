@@ -3,11 +3,11 @@ NPQRegistration::BaseRecord.connection.execute("SET statement_timeout to 0")
 
 npq_ecf_ids = NPQRegistration::Application.pluck(:ecf_id)
 applications_not_in_npq = NPQApplication.where.not(id: npq_ecf_ids).size
-# Count of applications in ECF and not in NPQ: 79
+# Count of applications in ECF and not in NPQ: 1032
 
 npq_ecf_ids = NPQRegistration::Application.pluck(:ecf_id)
 applications_not_in_ecf = npq_ecf_ids.size - NPQApplication.where(id: npq_ecf_ids).size
-# Count of applications in NPQ and not in ECF: 703
+# Count of applications in NPQ and not in ECF: 12
 
 npq_ecf_ids = NPQRegistration::LeadProvider.pluck(:ecf_id)
 lp_not_in_ecf = npq_ecf_ids.size - NPQLeadProvider.where(id: npq_ecf_ids).size
