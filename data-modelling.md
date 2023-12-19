@@ -40,9 +40,6 @@ erDiagram
     Application }o--o| PrivateChildcareProvider : ""
     Application }|--|| Cohort : ""
 
-    Declaration }|--|| User : ""
-    Declaration }|--|| Course : ""
-    Declaration }|--|| LeadProvider : ""
     Declaration }|--|| Application : ""
 
     Statement }|--|| LeadProvider : ""
