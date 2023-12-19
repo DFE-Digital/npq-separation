@@ -57,10 +57,6 @@ erDiagram
     %% Contract linked to Statement with version
     Contract }|--|| Statement : ""
 
-    Schedule }|--|| Cohort : ""
-
-    Milestone }|--|| Schedule : ""
-
     Outcome }|--|| Declaration : ""
 
     User {
@@ -163,17 +159,6 @@ erDiagram
         uuid statement_id
         uuid declaration_id
         string state
-    }
-
-    Schedule {
-        uuid id
-        uuid cohort_id
-    }
-
-    Milestone {
-        uuid id
-        uuid schedule_id
-        string declaration_type
     }
 ```
 
@@ -487,16 +472,6 @@ erDiagram
   * Application
     - `id`
     - `user_id`
-
-  * Schedule
-    - `id`
-    - `course_id`
-    - `cohort_id`
-
-  * Milestone
-    - `id`
-    - `schedule_id`
-    - `declaration_type`
 
   * Statement
     - `id`
