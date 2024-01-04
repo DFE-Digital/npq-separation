@@ -56,6 +56,9 @@ erDiagram
 
     Outcome }|--|| Declaration : ""
 
+    Schedule }|--|| Course : ""
+    Schedule }|--|| Cohort : ""
+
     User {
         uuid id
         string email
@@ -117,7 +120,7 @@ erDiagram
         uuid id
         uuid application_id
         string state
-        string declaration_type
+        declaration_type declaration_type "ENUM: started, retained-{1-3}, completed"
         date declaration_date
     }
 
@@ -156,6 +159,15 @@ erDiagram
         uuid statement_id
         uuid declaration_id
         string state
+    }
+
+    Schedule {
+        int id
+        int course_id
+        int cohort_id
+        string name
+        date starts_on
+        declaration_type declaration_type "ENUM: started, retained-{1-3}, completed"
     }
 ```
 
