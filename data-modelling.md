@@ -56,7 +56,8 @@ erDiagram
 
     Outcome }|--|| Declaration : ""
 
-    Schedule }|--|| Course : ""
+    Course }|--|| CourseGroup : ""
+    Schedule }|--|| CourseGroup : ""
     Schedule }|--|| Cohort : ""
 
     User {
@@ -74,7 +75,9 @@ erDiagram
 
     Course {
         uuid id
-        string identifier "Is this unique?"
+        uuid course_group_id
+        string identifier
+
     }
 
     Application {
@@ -161,12 +164,19 @@ erDiagram
         string state
     }
 
-    Schedule {
-        int id
-        int course_id
-        int cohort_id
+    CourseGroup {
+        uuid id
         string name
-        date starts_on
+    }
+
+    Schedule {
+        uuid id
+        uuid course_group_id
+        uuid cohort_id
+        string name
+        date declaration_starts_on
+        date schedule_applies_from
+        date schedule_applies_to
         declaration_type declaration_type "ENUM: started, retained-{1-3}, completed"
     }
 ```
