@@ -39,7 +39,6 @@ erDiagram
     Application }|--|| Schedule : ""
     Application }o--o| School : ""
     Application }o--o| PrivateChildcareProvider : ""
-    Application }|--|| Cohort : ""
 
     Declaration }|--|| Application : ""
 
@@ -98,7 +97,6 @@ erDiagram
         string school_urn
         string lead_provider_approval_status
         boolean works_in_school
-        uuid cohort_id
         boolean eligible_for_funding
         boolean targeted_delivery_funding_eligibility
         string teacher_catchment
@@ -106,6 +104,7 @@ erDiagram
         string teacher_catchment_country
         string itt_provider
         boolean lead_mentor
+        datetime submitted_at
     }
 
     Cohort {
