@@ -36,6 +36,7 @@ erDiagram
     Application }|--|| User : ""
     Application }|--|| LeadProvider : ""
     Application }|--|| Course : ""
+    Application }|--|| Schedule : ""
     Application }o--o| School : ""
     Application }o--o| PrivateChildcareProvider : ""
     Application }|--|| Cohort : ""
@@ -85,6 +86,7 @@ erDiagram
         uuid course_id
         uuid lead_provider_id
         uuid user_id
+        uuid schedule_id
         string employer_name
         string employment_role
         string funding_choice
