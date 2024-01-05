@@ -36,9 +36,9 @@ erDiagram
     Application }|--|| User : ""
     Application }|--|| LeadProvider : ""
     Application }|--|| Course : ""
+    Application }|--|| Schedule : ""
     Application }o--o| School : ""
     Application }o--o| PrivateChildcareProvider : ""
-    Application }|--|| Cohort : ""
 
     Declaration }|--|| Application : ""
 
@@ -56,6 +56,10 @@ erDiagram
 
     Outcome }|--|| Declaration : ""
 
+    Course }|--|| CourseGroup : ""
+    Schedule }|--|| CourseGroup : ""
+    Schedule }|--|| Cohort : ""
+
     User {
         uuid id
         string email
@@ -71,7 +75,9 @@ erDiagram
 
     Course {
         uuid id
-        string identifier "Is this unique?"
+        uuid course_group_id
+        string identifier
+
     }
 
     Application {
@@ -79,6 +85,7 @@ erDiagram
         uuid course_id
         uuid lead_provider_id
         uuid user_id
+        uuid schedule_id
         string employer_name
         string employment_role
         string funding_choice
@@ -90,7 +97,6 @@ erDiagram
         string school_urn
         string lead_provider_approval_status
         boolean works_in_school
-        uuid cohort_id
         boolean eligible_for_funding
         boolean targeted_delivery_funding_eligibility
         string teacher_catchment
@@ -98,6 +104,7 @@ erDiagram
         string teacher_catchment_country
         string itt_provider
         boolean lead_mentor
+        datetime submitted_at
     }
 
     Cohort {
@@ -117,7 +124,7 @@ erDiagram
         uuid id
         uuid application_id
         string state
-        string declaration_type
+        declaration_type declaration_type "ENUM: started, retained-{1-3}, completed"
         date declaration_date
     }
 
@@ -156,6 +163,22 @@ erDiagram
         uuid statement_id
         uuid declaration_id
         string state
+    }
+
+    CourseGroup {
+        uuid id
+        string name
+    }
+
+    Schedule {
+        uuid id
+        uuid course_group_id
+        uuid cohort_id
+        string name
+        date declaration_starts_on
+        date schedule_applies_from
+        date schedule_applies_to
+        declaration_type declaration_type "ENUM: started, retained-{1-3}, completed"
     }
 ```
 
