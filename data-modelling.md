@@ -178,7 +178,7 @@ erDiagram
         date declaration_starts_on
         date schedule_applies_from
         date schedule_applies_to
-        declaration_type declaration_type "ENUM: started, retained-{1-3}, completed"
+        declaration_type[] allowed_declaration_types "ENUM[]: started, retained-{1-3}, completed"
     }
 ```
 
