@@ -527,6 +527,8 @@ update a statement we have to search on this column. Better to add a
 `month` column with enum of months and a `year` column with validations.
 Make `name` into a generated method.
 
+### Should we store multiple emails per user, or tidy up existing data if possible?
+
 ## Next steps
 
 1. Statements and calculators
