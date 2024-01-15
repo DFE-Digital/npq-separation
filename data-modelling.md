@@ -59,6 +59,9 @@ erDiagram
     Course }|--|| CourseGroup : ""
     Schedule }|--|| CourseGroup : ""
     Schedule }|--|| Cohort : ""
+    
+    ParticipantIdChange }|--|| User : ""
+
 
     User {
         uuid id
@@ -180,6 +183,14 @@ erDiagram
         date schedule_applies_to
         declaration_type[] allowed_declaration_types "ENUM[]: started, retained-{1-3}, completed"
     }
+
+    ParticipantIdChange {
+        uuid id
+        uuid user_id
+        uuid from_participant_id
+        uuid to_participant_id
+    }
+
 ```
 
 ### Things we merged
