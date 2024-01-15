@@ -34,17 +34,17 @@ Versions / Versions (Papertrail)
 
 ## Data Comparison Queries
 
-We have ran a series of [queries](data-integrity/data-comparison-queries.rb) to compare the data sets of the NPQ registration and ECF apps:
+We ran a series of [queries](data-integrity/data-comparison-queries.rb) to compare ECF and NPQ data.
 
 | Query                                                            | Result   |
 | ---------------------------------------------------------------- | -------- |
-| Applications in ECF and not in NPQ (by ecf_id)                   |  1032    |
-| Applications in NPQ and not in ECF (by ecf_id)                   |  12      |
-| Users in NPQ and not in ECF (by ecf_id)                          |  5,499   |
-| Users in NPQ with a duplicated email                             |  27      |
-| Users in NPQ with an invalid email (according to ECF validation) |  11      |
-| Users in NPQ with a different email in ECF                       |  1,025   |
-| Users in NPQ matching users in ECF with 0 NPQ applications       |  14,052  |
+| Applications in ECF and not in NPQ (by ecf_id)                   |  **1032**    |
+| Applications in NPQ and not in ECF (by ecf_id)                   |  **12**      |
+| Users in NPQ and not in ECF (by ecf_id)                          |  **5,499**   |
+| Users in NPQ with a duplicated email                             |  **27**      |
+| Users in NPQ with an invalid email (according to ECF validation) |  **11**      |
+| Users in NPQ with a different email in ECF                       |  **1,025**   |
+| Users in NPQ matching users in ECF with 0 NPQ applications       |  **14,052**  |
 
 ## Migration scripts
 
@@ -93,7 +93,7 @@ The robot face emoji denotes tables that are used by the system that don't form 
 | `features` 🤖                             |                                       |
 | `finance_adjustments`                     |                                       |
 | `finance_profiles`                        |                                       |
-| `friendly_id_slugs`                       |                                       |
+| `friendly_id_slugs` 🤖                    |                                       |
 | `induction_coordinator_profiles`          |                                       |
 | `induction_coordinator_profiles_schools`  |                                       |
 | `induction_programmes`                    |                                       |
@@ -138,7 +138,7 @@ The robot face emoji denotes tables that are used by the system that don't form 
 | `school_local_authority_districts`        |                                       |
 | `school_mentors`                          |                                       |
 | `schools`                                 | `schools`                             |
-| `sessions`                                |                                       |
+| `sessions` 🤖                             |                                       |
 | `statement_line_items`                    |                                       |
 | `statements`                              |                                       |
 | `sync_dqt_induction_start_date_errors` 🤖 |                                       |
@@ -146,7 +146,7 @@ The robot face emoji denotes tables that are used by the system that don't form 
 | `users`                                   | `users`                               |
 | `versions` 🤖                             | `versions` 🤖                         |
 |                                           | `delayed_jobs` 🤖                     |
-|                                           | `ecf_sync_request_logs`               |
+|                                           | `ecf_sync_request_logs` 🤖            |
 |                                           | `flipper_features` 🤖                 |
 |                                           | `flipper_gates` 🤖                    |
 |                                           | `get_an_identity_webhook_messages` 🤖 |
