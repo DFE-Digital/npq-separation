@@ -115,7 +115,7 @@ The robot face emoji denotes tables that are used by the system that don't form 
 | `participant_bands`                       |                                       |
 | `participant_declaration_attempts`        |                                       |
 | `participant_declarations`                |                                       |
-| `participant_id_changes`                  |                                       |
+| `participant_id_changes`                  | `participant_id_changes`              |
 | `participant_identities`                  |                                       |
 | `participant_outcome_api_requests`        |                                       |
 | `participant_outcomes`                    |                                       |
@@ -131,7 +131,7 @@ The robot face emoji denotes tables that are used by the system that don't form 
 | `provider_relationships`                  |                                       |
 | `pupil_premiums`                          |                                       |
 | `schedule_milestones`                     |                                       |
-| `schedules`                               |                                       |
+| `schedules`                               | `schedules`                           |
 | `school_cohorts`                          |                                       |
 | `school_links`                            |                                       |
 | `school_local_authorities`                |                                       |
