@@ -59,6 +59,9 @@ erDiagram
     Course }|--|| CourseGroup : ""
     Schedule }|--|| CourseGroup : ""
     Schedule }|--|| Cohort : ""
+    
+    ParticipantIdChange }|--|| User : ""
+
 
     User {
         uuid id
@@ -180,6 +183,14 @@ erDiagram
         date schedule_applies_to
         declaration_type[] allowed_declaration_types "ENUM[]: started, retained-{1-3}, completed"
     }
+
+    ParticipantIdChange {
+        uuid id
+        uuid user_id
+        uuid from_participant_id
+        uuid to_participant_id
+    }
+
 ```
 
 ### Things we merged
@@ -515,6 +526,8 @@ Currently have `name` (eg: "September 2025"). When we want to refer and
 update a statement we have to search on this column. Better to add a
 `month` column with enum of months and a `year` column with validations.
 Make `name` into a generated method.
+
+### Should we store multiple emails per user, or tidy up existing data if possible?
 
 ## Next steps
 
