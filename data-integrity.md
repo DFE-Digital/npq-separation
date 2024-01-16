@@ -173,7 +173,7 @@ For **financial data** for example, it’ll be new tables to get created in `NPQ
   Covered in the [the comparison CSV](data-integrity/ecf_npq_registration_model_comparison.csv).
 
 - ##### The source of truth of data between both
-  We believe the source of truth of data would be ECF app as a npq application is created via npq-reg app but it's maintained, enhanced and displayed to lead providers via ECF app apis.
+  We believe the source of truth of data would be ECF app as a NPQ application is created in the NPQ registration app but it's maintained, enhanced and displayed to lead providers via the ECF API.
 
 - ##### Devise a plan to safely migrate data from ECF to NPQ
   Covered in the [proposed data migration plan](#proposed-data-migration-plan).
