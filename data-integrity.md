@@ -93,9 +93,10 @@ For **financial data** for example, it’ll be new tables to get created in `NPQ
   To be discussed with wider dev team
 
 
-## Next Steps
+## Migration Tool
 
-1. Deep dive into the purposed data migration plan
-2. Understand oddly shaped scenarios:
-    1. applications in ECF and not in NPQ and vice-versa
-    2. users in NPQ and not in ECF (linked by ecf_id) (maybe deduped users?)
+We have built an [initial version of a migration tool](data-integrity/migration-tool.md) as a proof of concept that can perform data reconciliation and update the latest NPQ models from their ECF counterparts. 
+
+## Fixing data integrity issues
+
+Off the back of the migration performed against production we have been analysing the highlighted data integrity issue and [written up our data findings](data-integrity/migration-data-findings.md).
