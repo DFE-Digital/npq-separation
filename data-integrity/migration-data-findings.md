@@ -42,22 +42,22 @@ The the full list of ids & support data can be found in this [spreadsheet](https
   - EDT |	1
 
   Numbers by course:
-  - NPQSL	68
-  - NPQLPM	57
-  - NPQH	48
-  - NPQEHCO	38
-  - NPQLL	17
-  - NPQLT	14
-  - NPQLBC	6
-  - NPQEYL	2
-  - NPQLTD	1
+  - NPQSL	|	68
+  - NPQLPM	|	57
+  - NPQEHCO	|	38
+  - NPQLL	|	17
+  - NPQLT	|	14
+  - NPQLBC	|	6
+  - NPQEYL	|	2
+  - NPQLTD	|	1
 
 - 17 applications are in NPQ registration and not in ECF
   - pending | 1
 
-- 5017 users are in NPQ registration and not in ECF
+- 5016 users are in NPQ registration and not in ECF **(user email address in NPQ registration does not match to any user in ECF)**
   - with TRN | 1284
   - without TRN | 3733
+  - Only 81 of those users have NPQ applications (refer to `ecf_application_id` on [NPQ_Orphan_Users spreadsheet](https://educationgovuk-my.sharepoint.com/:x:/r/personal/ross_oliver_education_gov_uk/Documents/orphan_applications%201.xlsx?d=wdd6a243cfaed4c31a19804df38cd5836&csf=1&web=1&e=eEL5GF&nav=MTVfezlGNkJCMEE4LTg0OUItNDY2Ny1COUNGLUUxNDMzMDNEQkE5MH0)).
 
 ### Actions & Thoughts
 
