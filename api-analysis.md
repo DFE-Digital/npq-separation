@@ -130,7 +130,7 @@ The parameter `participant_id`:
    - For new participants, we will return a new `UUID` which will be also stored in the `users` table (`ecf_id`) field.
 3. Rename `ecf_id` to `lead_provider_participant_id`, so we break the link between NPQ and ECF.
 4. Add field `lead_provider_participant_source`, being source: `npq` or `ecf`. This will help identify the source of the participant. 
-5. Create a `Finder` in NPQ to locate an application using the course and the participant.
+5. Create a `Finder` in NPQ to locate an application using the course and the participant: course only has one accepted application per course. 
 
 #### Open Questions
 
