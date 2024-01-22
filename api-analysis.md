@@ -18,7 +18,6 @@ GET /api/v1/participants/npq
 GET /api/v1/participants/npq/{id}
 PUT /api/v1/participants/npq/{id}/change-schedule
 PUT /api/v1/participants/npq/{id}/defer
-PUT /api/v1/participants/npq/{id}/defer
 PUT /api/v1/participants/npq/{id}/resume
 PUT /api/v1/participants/npq/{id}/withdraw
 GET /api/v1/participants/npq/outcomes
