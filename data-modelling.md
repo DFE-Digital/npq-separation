@@ -59,8 +59,10 @@ erDiagram
     Course }|--|| CourseGroup : ""
     Schedule }|--|| CourseGroup : ""
     Schedule }|--|| Cohort : ""
-    
+
     ParticipantIdChange }|--|| User : ""
+
+    ApiToken }|--|| LeadProvider : ""
 
 
     User {
@@ -189,6 +191,13 @@ erDiagram
         uuid user_id
         uuid from_participant_id
         uuid to_participant_id
+    }
+
+    ApiToken {
+        uuid id
+        uuid lead_provider_id
+        string hashed_token
+        datetime last_used_at
     }
 
 ```
