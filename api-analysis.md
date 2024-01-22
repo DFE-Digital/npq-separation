@@ -132,8 +132,3 @@ The parameter `participant_id`:
 4. Add field `lead_provider_participant_source`, being source: `npq` or `ecf`. This will help identify the source of the participant. 
 5. Create a `Finder` in NPQ to locate an application using the course and the participant: course only has one accepted application per course. 
 
-#### Open Questions
-
-1. If `participant_id` is the same as the `user_id` in NPQ, we would need to do a mapping in `ECF` (this make it difficult for LP to use NPQ API directly for old applications).
-2. In order to have an API in NPQ that is ready for LP to use directly for old applications, we would need to explore using `TRN`s)?
-
