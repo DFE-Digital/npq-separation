@@ -97,4 +97,12 @@ We had an **81%** perfect match rate for users and **91%** perfect match rate fo
 
 ## Next steps
 
-Off the back of the migration performed against production we have been analysing the highlighted data integrity issue and [written up our data findings](data-integrity/migration-data-findings.md).
+### Performance
+
+When running the migration on production data we encountered issues with memory usage in the job worker. As the tool loads all the users/applications into memory (for performance) it requires a lot of memory to run. The worker needs to be configured with 12GB of available memory (although optimisations have since been made that may reduce that number).
+
+Going forward we could improve the performance further by replacing the `includes` with `joins` and only selecting the fields from nested objects that we actually read (we do this on the main objects but Rails doesn't have a straight forward mechanism of restricting attributes on included relationships). This would, however, require a lot of changes to how the indexer works as it relies on the current model structure. 
+
+#### Data analysis
+
+Off the back of the migration performed against production we have been analysing the highlighted data integrity issue and [written up our data findings](migration-data-findings.md).
