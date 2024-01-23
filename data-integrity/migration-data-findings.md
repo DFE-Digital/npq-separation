@@ -2,9 +2,6 @@
 
 The purpose of this document is to highlight discrepancies of data between ECF & NPQ registration apps.
 
-application inconsistencies seem to stem from either new data depending on when snapshots were created, or duplicate applications being created in ECF from NPQ and not synced back. Leandro is kindly going to rerun and hopefully the numbers will be smaller, and we might be able to group a lot of the inconsistent ones into the duplicate record group
-User inconsistencies: similar to above and a lot in NPQ not in ECF which isn’t a big deal as those don’t have applications
-
 ### How we did
 
 In order to do that, we took a snapshot of both DBs and compared the data. So a table from ECF app was compared with a table from NPQ registration app. ie: `npq_applications` table with `applications` and `users` with `users`.
@@ -66,6 +63,8 @@ We have identified an issue, which after get fixed, we believe will help to clea
 The issue is basically creating duplicate applications in ECF from NPQ and not synced. More details in this [Slack thread](https://ukgovernmentdfe.slack.com/archives/C02NLLCAD0S/p1705499425822399).
 
 Number of orphan applications in NPQ registration (17) might be due we had deleted some duplicated applications in ECF during last year.
+
+Application & User inconsistencies seem to stem from either new data depending on when snapshots were created, or duplicated records issue mentioned above.
 
 User inconsistencies isn't a big deal as those don't have applications.
 
