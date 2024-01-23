@@ -27,6 +27,37 @@ The purpose of this document is to investigate current tooling (in finance and a
 | Resend NPQ participant outcome | /finance/npq/participant_outcomes/:participant_outcome_id/resend | finance/npq/participant_outcomes
 | Authorise NPQ statement for payment | /finance/statements/:statement_id/payment_authorisations/new | finance/payment_authorisations |
 
+
+### Admin profile tools/features
+| Feature                                                          | URL      | Controller          |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------------------------------------------- |
+| Admin Landing page (Overview)                                                                              | /admin<br>/admin/performance<br>/admin/performance/overview            | admin/performance/overview                  |
+| List participants                                                                                          | /admin/participants                                                    | admin/participants                          |
+| View NPQ participant details                                                                               | /admin/participants/:id<br>/admin/participants/:participant_id/details | admin/participants                          |
+| View NPQ participant change log                                                                            | /admin/participants/:participant_id/change_log                         | admin/participants/change_log               |
+| NPQ participant identity confirmation                                                                      | /admin/participants/:id/validations/identity                           | admin/participants/validations              |
+| NPQ participant identity confirmation final decision                                                       | /admin/participants/:id/validations/decision                           | admin/participants/validations              |
+| Change NPQ participant full name                                                                           | /admin/participants/:participant_id/npq_change_full_name/edit          | admin/participants/npq/change_full_name     |
+| Change NPQ participant email                                                                               | /admin/participants/:participant_id/npq_change_email/edit              | admin/participants/npq/change_email         |
+| List archived participants                                                                                 | /admin/archive<br>/admin/archive/relics                                | admin/archive/relics                        |
+| Manage admin users                                                                                         | /admin/administrators                                                  |                                             |
+| Add/Amend a note to a NPQ application                                                                      | /admin/npq/applications/notes/:id/edit                                 | admin/npq/applications/notes                |
+| NPQ eligibility imports csv example download                                                               | /admin/npq/applications/eligibility_imports/example.csv                | admin/npq/applications/eligibility_imports  |
+| NPQ eligibility imports files list                                                                         | /admin/npq/applications/eligibility_imports                            | admin/npq/applications/eligibility_imports  |
+| View status of a NPQ application eligibility import                                                        | /admin/npq/applications/eligibility_imports/:id                        | admin/npq/applications/eligibility_imports  |
+| NPQ Application analysis (Paid or Payable declarations made against a rejected or pending NPQ Application) | /admin/npq/applications/analysis                                       | admin/npq/applications/analysis             |
+| Change NPQ application full name                                                                           | /admin/npq/applications/change_name/:id/edit                           | admin/npq/applications/change_name          |
+| Change NPQ application email                                                                               | /admin/npq/applications/change_email/:id/edit                          | admin/npq/applications/change_email         |
+| NPQ Applications list export                                                                               | /admin/npq/applications/exports                                        | admin/npq/applications/exports              |
+| Schefule a NPQ Applications list export                                                                    | /admin/npq/applications/exports/new                                    | admin/npq/applications/exports              |
+| View NPQ application change log                                                                            | /admin/npq/applications/applications/:application_id/change_logs       | admin/npq/applications/change_logs          |
+| Seach NPQ applications                                                                                     | /admin/npq/applications/applications                                   | admin/npq/applications                      |
+| View a NPQ application details                                                                             | /admin/npq/applications/applications/:id                               | admin/npq/applications                      |
+| Search NPQ applicants (Edge Cases tab)                                                                     | /admin/npq/applications/edge_cases                                     | admin/npq/applications/edge_cases           |
+| View  NPQ applicant details                                                                                | /admin/npq/applications/edge_cases/:id                                 | admin/npq/applications/edge_cases           |
+| Change NPQ participant Eligible for funding status                                                         | /admin/npq/applications/eligible_for_funding/:id/edit                  | admin/npq/applications/eligible_for_funding |
+| Change NPQ participant Funding eligibility status                                                          | /admin/npq/applications/eligibility_status/:id/edit                    | admin/npq/applications/eligibility_status   |
+
 ### Actions & Thoughts
 
 Discuss with Jake on what we need to move over.
