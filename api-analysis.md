@@ -180,3 +180,83 @@ If the response has pagination, then ECF should paginate the response, which is 
 1. Split the API that merge paginated data into different endpoints for NPQ and ECF
 2. Responses that include data from ECF and NPQ can be nullified (in the response) and ignored when consumed. This can be a bit confusing for a future use of the API (when NPQ API is consumed directly)
 
+## API Proxy Solution
+
+To avoid disruption and to allow for easier migration with
+providers, we considered a API proxy solution that would mimic NPQ
+endpoints on the ECF app and redirect those requests to the NPQ
+app. Therefore we can for a **short period** maintain the current API
+url+endpoints without any breaking changes.
+
+Spikes to for the solution and to run performance tests:
+* [API Proxy on ECF app](https://github.com/DFE-Digital/early-careers-framework/pull/4431)
+* [Spike endpoints on NPQ app](https://github.com/DFE-Digital/npq-registration/pull/1103)
+
+Implementation includes GET, POST and PUT requests to account for all
+types of endpoints.
+
+### Endpoint: GET /api/v1/npq-applications
+
+This endpoint was tested with real production data. Using Apache Bench,
+we ran 4 requests and per page of 3000 records.
+
+Request time:
+
+* No proxy: 222 seconds
+* With proxy: 116 seconds
+
+### Endpoint: GET /api/v3/participant-declarations
+
+This endpoint is shared by both NPQ and ECF, which required the proxy
+service would need to merge the results of both NPQ and ECF requests.
+The tests were performed with production ECF data and fake NPQ
+declarations.
+
+Using Apache Bench, we ran 4 requests and per page of 3000 records.
+
+Request time:
+
+* No proxy: 14.9 seconds
+* With proxy: 15.6 seconds
+
+### Endpoint: POST /api/v3/participant-declarations
+
+Based on the request `course_identifier` parameter (beginning with
+`npq-*`), we are able to proxy NPQ requests to NPQ app.
+
+### Endpoint: GET /api/v3/participant-declarations/{declaration_id}
+
+As we only have the `declaration_id`, we are not able to determine if it
+is NPQ or ECF. We try to proxy to NPQ app first, otherwise try ECF.
+
+### Endpoint: PUT /api/v3/participant-declarations/{declaration_id}/void
+
+As we only have the `declaration_id`, we are not able to determine if it
+is NPQ or ECF. We try to proxy to NPQ app first, otherwise try ECF.
+
+### Conclusion
+
+Proxy is a possible solution which can be implemented without too much
+degradation of service.
+
+The proxy adds complexity that make errors hard to diagnose, track
+issues and it increases the total number of requests.
+
+There are complications around pagination and ordering of results,
+especially for services that are shared by NPQ/ECF (eg: declarations),
+as we have to combine results from two different sources.
+
+The best solution is to avoid using the proxy and have the providers
+use the two API endpoints separately.
+
+Proxy should only be considered as a **short term** solution to ease
+migration.
+
+## API Authentication
+
+To avoid breaking changes, we will use the same API authentication as ECF.
+
+New model `ApiToken` added to [npq-registration](https://github.com/DFE-Digital/npq-registration/pull/1109) and [schema](https://github.com/DFE-Digital/npq-separation/pull/16) updated with the changes.
+
+All provider API keys will be copied over to NPQ app to avoid
+disruption.
