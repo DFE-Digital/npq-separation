@@ -131,3 +131,52 @@ The parameter `participant_id`:
 4. Add field `lead_provider_participant_source`, being source: `npq` or `ecf`. This will help identify the source of the participant. 
 5. Create a `Finder` in NPQ to locate an application using the course and the participant: course only has one accepted application per course. 
 
+
+### Changes to endpoints
+
+#### Endpoints that return only information from ECF
+
+No changes needed.
+
+#### Endpoints that return only information from NPQ
+
+Proxy the request from ECF towards NPQ.
+
+#### Endpoints that handle information from ECF and NPQ.
+
+Two types of endpoints:
+
+1. Endpoints that search for an item from ECF or NPQ
+2. Endpoints that return items from ECF and/or NPQ
+
+##### Endpoints that search for an item from ECF or NPQ
+
+For example:
+
+```
+GET  /api/v1/participant-declarations/{id}
+POST /api/v1/participant-declarations
+POST /api/v1/participant-declarations
+```
+
+In these cases, ECF will check in the request who should handle the request. 
+If it is not ECF then it will proxy the request to NPQ. 
+
+##### Endpoints that return items from ECF and/or NPQ
+
+For example:
+
+```
+GET /api/v3/participant-declarations
+GET /api/v3/statements
+```
+
+In these cases, ECF should merge the response from NPQ and ECF.
+If the response has pagination, then ECF should paginate the response, which is not ideal (difficult to implement)
+
+
+### Conclusions
+
+1. Split the API that merge paginated data into different endpoints for NPQ and ECF
+2. Responses that include data from ECF and NPQ can be nullified (in the response) and ignored when consumed. This can be a bit confusing for a future use of the API (when NPQ API is consumed directly)
+
