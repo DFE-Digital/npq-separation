@@ -240,8 +240,15 @@ is NPQ or ECF. We try to proxy to NPQ app first, otherwise try ECF.
 Proxy is a possible solution which can be implemented without too much
 degradation of service.
 
-The proxy adds complexity that make errors hard to diagnose and track issues.
-Overall it increases the total number of requests.
+The proxy adds complexity that make errors hard to diagnose, track
+issues and it increases the total number of requests.
+
+There are complications around pagination and ordering of results,
+especially for services that are shared by NPQ/ECF (eg: declarations),
+as we have to combine results from two different sources.
+
+The best solution is to avoid using the proxy and have the providers
+use the two API endpoints separately.
 
 Proxy should only be considered as a **short term** solution to ease
 migration.
