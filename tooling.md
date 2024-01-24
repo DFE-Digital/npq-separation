@@ -4,6 +4,8 @@ The purpose of this document is to investigate current tooling (in finance and a
 
 ### Finance profile tools/features
 
+<font size="2">
+
 | Feature                                                          | URL      | Controller          |
 | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------------------------------------------- |
 | Finance Landing page (Manage CPD Contracts)          | /finance/manage-cpd-contracts    | finance/landing_page                             |
@@ -27,8 +29,12 @@ The purpose of this document is to investigate current tooling (in finance and a
 | Resend NPQ participant outcome | /finance/npq/participant_outcomes/:participant_outcome_id/resend | finance/npq/participant_outcomes
 | Authorise NPQ statement for payment | /finance/statements/:statement_id/payment_authorisations/new | finance/payment_authorisations |
 
+</font>
 
 ### Admin profile tools/features
+
+<font size="2">
+
 | Feature                                                          | URL      | Controller          |
 | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------------------------------------------- |
 | Admin Landing page (Overview)                                                                              | /admin<br>/admin/performance<br>/admin/performance/overview            | admin/performance/overview                  |
@@ -57,6 +63,8 @@ The purpose of this document is to investigate current tooling (in finance and a
 | View  NPQ applicant details                                                                                | /admin/npq/applications/edge_cases/:id                                 | admin/npq/applications/edge_cases           |
 | Change NPQ participant Eligible for funding status                                                         | /admin/npq/applications/eligible_for_funding/:id/edit                  | admin/npq/applications/eligible_for_funding |
 | Change NPQ participant Funding eligibility status                                                          | /admin/npq/applications/eligibility_status/:id/edit                    | admin/npq/applications/eligibility_status   |
+
+</font>
 
 ### Actions & Thoughts
 
