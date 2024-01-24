@@ -2,7 +2,7 @@
 
 The purpose of this document is to investigate current tooling (in finance and admin interfaces) including eligibility imports and application exports, and how we can move over what we need to. From a self-sustainability point of view, everything we store in the database we should view as something that could be editable in the admin, which could be in the future edited via a field or dropdown.
 
-### Finance profile tools/features
+## Finance profile tools/features
 
 <font size="2">
 
@@ -31,7 +31,7 @@ The purpose of this document is to investigate current tooling (in finance and a
 
 </font>
 
-### Admin profile tools/features
+## Admin profile tools/features
 
 <font size="2">
 
@@ -66,6 +66,34 @@ The purpose of this document is to investigate current tooling (in finance and a
 
 </font>
 
+## Moving Statements feature to NPQ registration app
+
+<p align="center">
+  <img alt="img-name" src="data-integrity/images/dashboard-with-statements.png" width="500">
+  <br>
+    <em>NPQ reg admin dashboard (with statements option)</em>
+</p>
+
+---
+
+<p align="center">
+  <img alt="img-name" src="data-integrity/images/select-npq-provider.png" width="500">
+  <br>
+    <em>Select NPQ Lead Provider page</em>
+</p>
+
+---
+
+<p align="center">
+  <img alt="img-name" src="data-integrity/images/code-changes.png" width="500">
+  <br>
+    <em>Code Changes</em>
+</p>
+
 ### Actions & Thoughts
 
 Discuss with Jake on what we need to move over.
+
+Set priorities levels to each of them and then when we have a final list of tools/features, we need to move over to NPQ reg app, the idea for the moving itself is to move the controller/views/concerns/helpers/tests to NPQ reg app.
+
+Note: Authorization wise, not sure whether we'll have a unique profile with different permissions or something like we have in ECF app now where users can have different profiles (AdminProfile, FinanceProfile, LeadProviderProfile, etc) and each profile can access different parts of the app.
