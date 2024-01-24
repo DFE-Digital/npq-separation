@@ -16,7 +16,7 @@ NPQ syncs or creates new users in ECF, sends/updates applications and syncs appl
 
 **TL;DR** The NPQ registration app has a bunch of models under the `External::EcfApi` namespace that are backed by `/api/v1` public APIs and further models under the `External::EcfApi::Npq` namespace that are backed by the `/api/v1/npq` private APIs in ECF.
 
-NPQ registration creates and updates users and applications in ECF as part of application submissions and periodic syncing. Application and user data are also pulled from ECF into NPQ registration periodically and manually. The funding eligibility is also pulled from ECF to NPQ registration. When we migrate all application data into NPQ registration we shouldn't need any of these mechanisms as far as I can tell.
+NPQ registration creates and updates users and applications in ECF as part of application submissions and periodic syncing. Application and user data are also pulled from ECF into NPQ registration periodically and manually. The funding eligibility is also pulled from ECF to NPQ registration. When we migrate all application data into NPQ registration we shouldn't need any of the mechanisms that synchronise data. That being said, we will need to replicate the `NPQ::DedupeParticipant` logic in the NPQ registration service, as there will be duplicate records in NPQ registration that we should be reconciling when new applications are created (and the user has the same `trn` as an existing user).
 
 ## NPQ registration
 
@@ -144,13 +144,42 @@ When an `Application` is created in NPQ registration (via `HandleSubmissionForSt
     - Update the `ecf_id` of the application with the resulting profile id and sets `teacher_catchment_synced_to_ecf` to `true`.
   - Emails the user via `ApplicationSubmissionMailer` to let them know their application was submitted.
 
+#### Identity Transfer
+
+When an application is created in ECF via the API we call `save_and_dedupe_participant` on the `NPQApplication`, which:
+
+- Saves the `NPQApplication`.
+- Calls the `NPQ::DedupeParticipant` with the `npq_application` and its `teacher_reference_number`, which:
+  - Does nothing if:
+    - The application trn is not verified.
+    - The `from_user` and `to_user` have been deduped in the past (in either direction).
+    - A `from_user` or `to_user` were not found.
+  - Determines the `from_user` as that of the `NPQApplication` (the user passed from NPQ registration).
+  - Determines the `to_user` by finding the oldest `TeacherProfile` with a matching `trn` where the `TeacherProfile.user` is not the `from_user`.
+  - Calls the `Identity::Transfer` service with the `from_user` and `to_user`, which:
+    - Finds or creates a `TeacherProfile` for the `to_user`.
+    - For each `ParticipantIdentity` of the `from_user`:
+      - Update the `user` to be the `to_user`.
+      - For each `ParticipantProfile` update the `TeacherProfile` to be the `TeacherProfile` of the `to_user`.
+    - If the `from_user` and `to_user` both have an `InductionCoordinatorProfile`:
+      - Sets all of the `InductionCoordinatorProfilesSchool` records for the `from_user` to be the `InductionCoordinatorProfile` of the `to_user`.
+    - If just the `from_user` has an `InductionCoordinatorProfile`:
+      - Update the `InductionCoordinatorProfile` of the `from_user` to belong to the `to_user`.
+    - Sets the `to_user.get_an_identity_id=from_user.get_an_identity_id` and `from_user.get_an_identity_id=nil`
+    - Updates the `ParticipantIdChange` records of the `from_user` to point to the `to_user`.
+    - Creates a `ParticipantIdChange` on the `to_user` for the transfer.
+
+This boils down to merging the user passed from NPQ registration into an existing user in ECF with the same `trn`.
+
 #### Why does it do it?
 
 A core function of the NPQ registration service is to accept applications. Once accepted, these are then managed and modified in the ECF service. As the NPQ registration service also has mechanisms for displaying user and application information this synchronization process exists.
 
 #### Will we need this in the future?
 
-We shouldn't need this in the future; applications will only reside in NPQ registration and user state will be allowed to diverge (ideally neither service will maintain user information and instead will integrate with the get an identity service).
+We shouldn't most of this logic in the future; applications will only reside in NPQ registration and user state will be allowed to diverge (ideally neither service will maintain user information and instead will integrate with the get an identity service).
+
+That being said, we will need to replicate the `NPQ::DedupeParticipant` logic in the NPQ registration service, as there will be duplicate records in NPQ registration that we should be reconciling when new applications are created (and the user has the same `trn` as an existing user).
 
 ### Updating applications in ECF from NPQ registration
 
