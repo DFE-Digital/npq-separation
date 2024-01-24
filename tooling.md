@@ -97,3 +97,65 @@ Discuss with Jake on what we need to move over.
 Set priorities levels to each of them and then when we have a final list of tools/features, we need to move over to NPQ reg app, the idea for the moving itself is to move the controller/views/concerns/helpers/tests to NPQ reg app.
 
 Note: Authorization wise, not sure whether we'll have a unique profile with different permissions or something like we have in ECF app now where users can have different profiles (AdminProfile, FinanceProfile, LeadProviderProfile, etc) and each profile can access different parts of the app.
+
+#### Jake's thoughts:
+
+From what I can tell all of the admin functionality in the finance app will need to be moved over to NPQ Reg app for when we separate.
+
+Worth noting that some of the remaining features in the list are already present in the current NPQ app, but do work differently to those in the ECF app.
+
+From the NPQ admin functions in the list you have compiled, all will need to be moved over except the following:
+
+**Admin Landing page (Overview)- currently only shows ECF overview, NPQ Reg app currently has similar dashboard in place.**
+/admin
+/admin/performance
+/admin/performance/overviewadmin/performance/overview
+
+**NPQ participant identity confirmation**
+/admin/participants/:id/validations/identity
+admin/participants/validations
+
+**NPQ participant identity confirmation final decision**
+/admin/participants/:id/validations/decision
+admin/participants/validations
+
+**Change NPQ participant full name**
+/admin/participants/:participant_id/npq_change_full_name/edit
+admin/participants/npq/change_full_name
+
+**Change NPQ participant email**
+/admin/participants/:participant_id/npq_change_email/edit
+admin/participants/npq/change_email
+
+**List archived participants**
+/admin/archive
+/admin/archive/relics
+admin/archive/relics
+
+**NPQ eligibility imports csv example download**
+/admin/npq/applications/eligibility_imports/example.csv
+admin/npq/applications/eligibility_imports
+
+**NPQ eligibility imports files list**
+/admin/npq/applications/eligibility_imports
+admin/npq/applications/eligibility_imports
+
+**View status of a NPQ application eligibility import**
+/admin/npq/applications/eligibility_imports/:id
+admin/npq/applications/eligibility_imports
+
+**Change NPQ application full name**
+/admin/npq/applications/change_name/:id/edit
+admin/npq/applications/change_name
+
+**Change NPQ application email**
+/admin/npq/applications/change_email/:id/edit
+admin/npq/applications/change_email
+
+**NPQ Applications list export**
+/admin/npq/applications/exports
+admin/npq/applications/exports
+
+**Schedule a NPQ Applications list export**
+/admin/npq/applications/exports/new
+admin/npq/applications/exports
