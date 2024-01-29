@@ -88,7 +88,7 @@ An example of [script to set special_course](https://github.com/DFE-Digital/earl
   * Find `NPQContract` with `statement.contract_version`
   * Duplicate the contract
   * Set new value
-  * Set new dumped version
+  * Bump up contract version
   * Update statement with new version
 * Do this while not creating duplicate contracts as contract is shared
   between statements
