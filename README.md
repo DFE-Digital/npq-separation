@@ -5,3 +5,4 @@ This repo will hold the findings of the investigative work done to support the s
 3. [API](./api-analysis.md)
 4. [Internal APIs](./internal-apis.md)
 5. [Admin Tooling](./tooling.md)
+5. [Statement contracts modelling](./statement-contracts-modelling.md)
