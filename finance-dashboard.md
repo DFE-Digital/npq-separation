@@ -50,5 +50,4 @@
 3. Create a test suite based on production data to ensure that calculations are
    correct.
 4. Introduce validations rules regarding `frozen` statements
-5. Introduce validations rules regarding `voiding` statements
 
