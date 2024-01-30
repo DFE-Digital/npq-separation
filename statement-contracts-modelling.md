@@ -93,7 +93,7 @@ An example of [script to set special_course](https://github.com/DFE-Digital/earl
 * Do this while not creating duplicate contracts as contract is shared
   between statements
 
-## Proposed schema
+## Proposed schema 1
 
 ```mermaid
 erDiagram
@@ -157,7 +157,79 @@ end
 
 No more duplicating.
 
-## Changes
+Pros:
+* Much simpler schema
+* Contract belongs to only one statement
+* Simple CRUD for admin UI
+
+Cons:
+* Duplication of contract values
 
 There is a PR to remove redundant fields and add unique index:
 https://github.com/DFE-Digital/npq-registration/pull/1120
+
+## Proposed schema 2
+
+```mermaid
+erDiagram
+    Statement }|--|| LeadProvider : ""
+    Statement }|--|| Cohort : ""
+
+    Contract }|--|| Statement : ""
+    Contract }|--|| Course : ""
+    Contract }|--|| ContractTemplate : ""
+
+    LeadProvider {
+        string name
+    }
+
+    Course {
+        string identifier
+    }
+
+    Cohort {
+        integer start_year
+    }
+
+    Statement {
+        uuid cohort_id
+        uuid lead_provider_id
+
+        date deadline_date
+        datetime marked_as_paid_at
+        decimal reconcile_amount
+    }
+
+    Contract {
+        uuid statement_id
+        uuid course_id
+        uuid contract_template_id
+    }
+
+    ContractTemplate {
+        boolean special_course
+        decimal recruitment_target
+        decimal per_participant
+        decimal output_payment_percentage
+        decimal number_of_payment_periods
+        decimal service_fee_percentage
+        decimal service_fee_installments
+    }
+```
+
+Changes summary:
+* Instead of duplicating contract values, we have a new
+  `ContractTemplate`.
+* Contract links to a specific template.
+* We either update the template with new values or create new template
+  and set contract to new `contract_template_id`
+
+Pros:
+* Reduces duplication of contract values
+
+Cons:
+* When changing contract values, we still have to duplicate a template
+  and update contracts to that new template
+* Extra layer and complication
+* Likely more complicated admin UI
+
