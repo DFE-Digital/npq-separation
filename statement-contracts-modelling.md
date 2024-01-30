@@ -233,3 +233,22 @@ Cons:
 * Extra layer and complication
 * Likely more complicated admin UI
 
+# Dynamic generation of statement data
+
+Currently the finance statement page is calculated dynamically. This
+page has high load time and statements that have previously been paid could
+potentially change over time as the statement calculators are updated.
+
+## Save calculations in a JSON column
+
+Once a statement is marked `paid` we can store the calculated values in
+the database as JSON. Only display the stored calculations.
+
+Pros:
+* Page should load fast
+* No more unintended changes to old statements
+
+Cons:
+* More complexity
+* Change required to existing views and calculators
+* Is this even a problem?
