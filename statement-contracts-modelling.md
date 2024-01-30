@@ -156,3 +156,8 @@ end
 ```
 
 No more duplicating.
+
+## Changes
+
+There is a PR to remove redundant fields and add unique index:
+https://github.com/DFE-Digital/npq-registration/pull/1120
