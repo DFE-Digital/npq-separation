@@ -35,7 +35,8 @@
    Delivery funding and Clawbacks. The rest of the calculations are ECF specific
    and do not need to be ported to NPQ.
 2. Service fee, no longer need to be calculated in NPQ, only supported for
-   migration purposes.
+   migration purposes. To achieve this we would need to persist the service fee
+   and not recalculate it dynamically.
 3. Declaration value, and target delivery funding, are simple enough that do not
    present technical uncertainties for the implementation.
 4. Clawbacks, are a bit more difficult to implement as they depend on business
@@ -44,7 +45,8 @@
 
 #### Suggestions:
 
-1. Do not re-implement service fee calculations in NPQ
+1. Do not re-implement service fee calculations in NPQ. Only support them for
+   migration purposes. Remove dynamic calculation of service fees.
 2. Re-implement from scratch the calculations for: Declaration value, Target
    Delivery Funding and Clawbacks.
 3. Create a test suite based on production data to ensure that calculations are
