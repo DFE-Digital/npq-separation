@@ -524,3 +524,123 @@ The NPQ registration service calls this via the `External::EcfApi::Npq::Previous
 #### Will we need this in the future?
 
 We shouldn't need this in the future as all application data will be in NPQ registration.
+
+## Mermaid diagrams
+
+```mermaid
+flowchart LR
+
+subgraph npq["NPQ registration"]
+    create_application["create application"]
+end
+
+subgraph ecf["ECF"]
+    put_patch_api_users["PUT/PATCH /api/v1/npq/users/:id"]
+    post_api_users["POST /api/v1/npq/users"]
+    post_npq_profiles["POST /api/v1/npq-profiles"]
+end
+
+
+user_data["`**User Data**
+email
+full_name
+get_an_identity_id`"]
+
+application_data["`**Application Data**`"]
+
+create_application --> user_data --> put_patch_api_users
+user_data --> post_api_users
+create_application --> application_data --> post_npq_profiles
+post_npq_profiles --<b style="color: red; background: white;">user deduplication</b>--> post_npq_profiles
+
+linkStyle 5 stroke-width:2px,fill:none,stroke:red;
+```
+
+```mermaid
+flowchart LR
+
+subgraph npq["NPQ registration"]
+    sync_applications["sync applications"]
+end
+
+subgraph ecf["ECF"]
+    put_patch_npq_profiles["PUT/PATCH /api/v1/npq-profiles"]
+end
+
+sync_application_data["`**Application Data**
+    eligible_for_funding
+    funding_eligibility_status_code
+    teacher_catchment
+    teacher_catchment_country`"]
+
+sync_applications --> sync_application_data --> put_patch_npq_profiles
+```
+
+```mermaid
+flowchart LR
+
+subgraph npq["NPQ registration"]
+    sign_in["sign in"]
+    gias_sync["GIAS sync"]
+    webhook["Webhook"]
+end
+
+gias[("GIAS")]
+
+subgraph ecf["ECF"]
+    put_patch_api_users["PUT/PATCH /api/v1/npq/users/:id"]
+end
+
+user_data["`**User Data**
+    email
+    full_name
+    get_an_identity_id`"]
+
+gias_user_data["`**GIAS User Data**
+    full_name
+    date_of_birth
+    trn
+    uid
+    email
+    trn_lookup_status`"]
+
+gias --> gias_user_data --> sign_in --> user_data --> put_patch_api_users
+gias_user_data --> gias_sync --> user_data
+gias_user_data --> webhook --> user_data
+```
+
+```mermaid
+flowchart LR
+
+subgraph npq["NPQ registration"]
+    update_applications["update applications"]
+end
+
+subgraph ecf["ECF"]
+    get_application_sync["GET /api/v1/npq/application_synchronizations"]
+end
+
+update_application_data["`**Application Data**
+    lead_provider_approval_status
+    participant_outcome_state`"]
+
+get_application_sync --> update_application_data --> update_applications
+```
+
+```mermaid
+flowchart LR
+
+subgraph npq["NPQ registration"]
+    check_eligibility["eligibility check"]
+end
+
+subgraph ecf["ECF"]
+    get_prev_funding["GET /api/v1/npq/previous_funding"]
+end
+
+eligibility_data["`**Eligibility Data**
+    previously_funded
+    previously_received_targeted_funding_support`"]
+
+get_prev_funding --> eligibility_data --> check_eligibility
+```
