@@ -97,8 +97,6 @@ erDiagram
         string headteacher_status
         string ineligible_for_funding_reason
         string private_childcare_provider_urn
-        string teacher_reference_number
-        boolean teacher_reference_number_verified
         string school_urn
         string lead_provider_approval_status
         boolean works_in_school
